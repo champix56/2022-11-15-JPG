@@ -4,9 +4,9 @@ body {
     height: 95vh;
 }
 
-header, nav, footer {
+/* header, nav, footer {
     flex: 1;
-}
+} */
 
 #wrapper {
     flex-grow: 1;
@@ -45,4 +45,20 @@ footer {
 
 .input-big-nud {
     width:90px
+}
+/*thumbnail section*/
+#thumbnail{
+    display: flex; flex-wrap: wrap;
+    justify-content: space-evenly;
+    height: 80vh;
+    overflow-y: scroll;
+}
+#thumbnail>.meme-thumbnail{
+    width:32%;
+    height:200px;
+    padding:5px
+}
+#thumbnail>.meme-thumbnail>*{
+    max-height: 170px;
+    max-width: 190px;
 }
