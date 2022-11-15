@@ -22,6 +22,12 @@ header, nav, footer {
 footer {
     text-align: center;
 }
+#js-is-loaded{
+    background-color: skyblue;
+    color: tomato;
+    text-align: center;
+    font-weight: 900;
+}
 
 /* common classes */
 .flex-cols {
