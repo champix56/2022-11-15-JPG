@@ -67,8 +67,8 @@ function linkThumbnailEvt(evt) {
 
                     memeNode.querySelector('image').setAttribute('xlink:href', '/img/' + imageDuMeme.href);
 
-                    // memeNode.querySelector('text').style.textDecoration = 'underline';
-
+                    //ternaire    (cond)?vrai:faux;
+                    memeNode.querySelector('text').style.textDecoration = meme.underline?'underline':'none';
 
                     //ajout du clone dans le container
                     container.querySelector('#thumbnail').append(memeNode);
