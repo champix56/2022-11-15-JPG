@@ -23,6 +23,7 @@ function linkCreateEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens create', evt);
     setActiveLinkInNavbar(evt);
+    loadPage('create.html');
 
 }
 function linkHomeEvt(evt) {
@@ -37,4 +38,20 @@ function linkThumbnailEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens thumbnail', evt);
     setActiveLinkInNavbar(evt);
+}
+/**
+ * loader de vues
+ * @param {string} pageHref filename de la page a wrapper
+ */
+function loadPage(pageHref) {
+    var pagePath = `/vues/${pageHref}`;
+    fetch(pagePath)
+        .then(function (resp) {
+            return resp.text();
+        })
+        .then(function (html) {
+            document.querySelector('#wrapper').innerHTML = html;
+            return html;
+        })
+        
 }
