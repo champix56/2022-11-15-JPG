@@ -31,6 +31,7 @@ function linkHomeEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens home', evt);
     setActiveLinkInNavbar(evt, false);
+    loadPage('home.html');
 
 }
 function linkThumbnailEvt(evt) {
@@ -38,6 +39,8 @@ function linkThumbnailEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens thumbnail', evt);
     setActiveLinkInNavbar(evt);
+    loadPage('thumbnail.html');
+
 }
 /**
  * loader de vues
@@ -50,7 +53,13 @@ function loadPage(pageHref) {
             return resp.text();
         })
         .then(function (html) {
-            document.querySelector('#wrapper').innerHTML = html;
+            var wrapperNode=document.querySelector('#wrapper');
+            wrapperNode.innerHTML ="";
+            var container=document.createElement('div');
+            container.innerHTML=html;
+            container.childNodes.forEach(element=>{
+                wrapperNode.append(element);
+            });
             return html;
         })
         
