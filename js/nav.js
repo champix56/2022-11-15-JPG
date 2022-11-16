@@ -45,16 +45,42 @@ function linkThumbnailEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens thumbnail', evt);
     setActiveLinkInNavbar(evt);
-   const primages= fetch(`${REST_ADR}/images`).then(r=>r.json());
-   const prmemes=  fetch(`${REST_ADR}/memes`).then(r => r.json());
-   //synchro d'execution des then de promise avec 2 promises
-   Promise.all([primages,prmemes])
-    .then(arr => {
-        loadPage('thumbnail.html');
-        images=arr[0];
-        memes=arr[1];
-        console.log(arr);
-    })
+    const primages = fetch(`${REST_ADR}/images`).then(r => r.json());
+    const prmemes = fetch(`${REST_ADR}/memes`).then(r => r.json());
+    //synchro d'execution des then de promise avec 2 promises
+    Promise.all([primages, prmemes])
+        .then(arr => {
+            images = arr[0];
+            memes = arr[1];
+            loadPage('thumbnail.html', container => {
+                //recup du model present dans la vue
+                var memeModelNode = container.querySelector('#meme-');
+                //suppr. du model vide
+                memeModelNode.remove();
+                memes.forEach(meme => {
+                    //creation d'un doublon du noeud de model
+                    const memeNode = memeModelNode.cloneNode(true);
+                    //mise en place de l'id dynamique sur le clone
+                    memeNode.id = `meme-${meme.id}`;
+
+                    const imageDuMeme = images.find(img => img.id === meme.imageId);
+
+                    memeNode.querySelector('image').setAttribute('xlink:href', '/img/' + imageDuMeme.href);
+
+                    // memeNode.querySelector('text').style.textDecoration = 'underline';
+
+
+                    //ajout du clone dans le container
+                    container.querySelector('#thumbnail').append(memeNode);
+
+                    //gestion du meme
+
+                    console.log(meme, imageDuMeme)
+                });
+            });
+
+
+        });
 }
 /**
  * loader de vues
