@@ -68,12 +68,18 @@ function linkThumbnailEvt(evt) {
                     memeNode.querySelector('image').setAttribute('xlink:href', '/img/' + imageDuMeme.href);
 
                     //ternaire    (cond)?vrai:faux;
-                    memeNode.querySelector('text').style.textDecoration = meme.underline?'underline':'none';
+                    const text=memeNode.querySelector('text');
+                    text.style.textDecoration = meme.underline?'underline':'none';
+                    text.style.fontStyle = meme.underline?'italic':'normal';
+                    text.style.fontWeight = meme.fontWeight;
+                    text.style.fontSize = meme.fontSize;
+                    text.style.fill = meme.color;
+
+                    memeNode.querySelector('svg').setAttribute('viewBox','0 0 '+imageDuMeme.w+' '+imageDuMeme.h);
+
 
                     //ajout du clone dans le container
                     container.querySelector('#thumbnail').append(memeNode);
-
-                    //gestion du meme
 
                     console.log(meme, imageDuMeme)
                 });
