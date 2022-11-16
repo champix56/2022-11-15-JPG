@@ -45,12 +45,16 @@ function linkThumbnailEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens thumbnail', evt);
     setActiveLinkInNavbar(evt);
-    fetch(`${REST_ADR}/memes`).then(r => r.json()).then(arr => {
+   const primages= fetch(`${REST_ADR}/images`).then(r=>r.json());
+   const prmemes=  fetch(`${REST_ADR}/memes`).then(r => r.json());
+   //synchro d'execution des then de promise avec 2 promises
+   Promise.all([primages,prmemes])
+    .then(arr => {
         loadPage('thumbnail.html');
+        images=arr[0];
+        memes=arr[1];
         console.log(arr);
     })
-
-
 }
 /**
  * loader de vues
