@@ -1,0 +1,44 @@
+{
+    "memes": [
+        {
+            "id": 0,
+            "titre": "1er meme",
+            "text": "Wouha depuis le REST",
+            "x": 100,"y": 100,
+            "fontSize": 25,
+            "fontWeight": "900",
+            "underline": true,
+            "italic": true,
+            "color": "#23AB8E",
+            "imageId": 0
+        },
+        {
+            "id": 1,
+            "titre": "2eme meme",
+            "text": "Wouha depuis le REST le 2eme",
+            "x": 100,"y": 100,
+            "fontSize": 25,
+            "fontWeight": "900",
+            "underline": true,
+            "italic": true,
+            "color": "#23AB8E",
+            "imageId": 1
+        }
+    ],
+    "images": [
+        {
+            "id": 0,
+            "titre": "futurama",
+            "href": "futurama-team.jpg",
+            "w": 1904,
+            "h": 1071
+        },
+        {
+            "id": 1,
+            "titre": "futurama",
+            "href": "futurama-team.jpg",
+            "w": 1904,
+            "h": 1071
+        }
+    ]
+}
