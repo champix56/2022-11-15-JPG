@@ -37,7 +37,7 @@ function linkHomeEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens home', evt);
     setActiveLinkInNavbar(evt, false);
-    loadPage('home.html',1);
+    loadPage('home.html', 1);
 
 }
 function linkThumbnailEvt(evt) {
@@ -45,7 +45,11 @@ function linkThumbnailEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens thumbnail', evt);
     setActiveLinkInNavbar(evt);
-    loadPage('thumbnail.html');
+    fetch(`${REST_ADR}/memes`).then(r => r.json()).then(arr => {
+        loadPage('thumbnail.html');
+        console.log(arr);
+    })
+
 
 }
 /**
