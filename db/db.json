@@ -23,6 +23,19 @@
             "italic": true,
             "color": "#23AB8E",
             "imageId": 1
+        },
+        
+        {
+            "id": 2,
+            "titre": "2eme meme",
+            "text": "Wouha",
+            "x": 100,"y": 100,
+            "fontSize": 32,
+            "fontWeight": "900",
+            "underline": false,
+            "italic": true,
+            "color": "#ACE3BA",
+            "imageId": 2
         }
     ],
     "images": [
@@ -35,10 +48,18 @@
         },
         {
             "id": 1,
-            "titre": "futurama",
-            "href": "futurama-team.jpg",
-            "w": 1904,
-            "h": 1071
+            "titre": "mem men",
+            "href": "men_meme.png",
+            "w": 801,
+            "h": 801
+        },
+        
+        {
+            "id": 2,
+            "titre": "girl fire",
+            "href": "girl_fire.jpg",
+            "w": 640,
+            "h": 360
         }
     ]
 }
