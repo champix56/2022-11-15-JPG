@@ -23,7 +23,13 @@ function linkCreateEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens create', evt);
     setActiveLinkInNavbar(evt);
-    loadPage('create.html');
+    loadPage('create.html', function (nodeBase) {
+        var form = nodeBase.querySelector('form');
+        form.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            console.log('formulaire soumis');
+        })
+    });
 
 }
 function linkHomeEvt(evt) {
@@ -31,7 +37,7 @@ function linkHomeEvt(evt) {
     evt.preventDefault();
     console.log('fonction liens home', evt);
     setActiveLinkInNavbar(evt, false);
-    loadPage('home.html');
+    loadPage('home.html',1);
 
 }
 function linkThumbnailEvt(evt) {
@@ -45,22 +51,25 @@ function linkThumbnailEvt(evt) {
 /**
  * loader de vues
  * @param {string} pageHref filename de la page a wrapper
+ * @param {Function} callback function pour l'ajout des eventslistener
  */
-function loadPage(pageHref) {
+function loadPage(pageHref, callback) {
     var pagePath = `/vues/${pageHref}`;
     fetch(pagePath)
         .then(function (resp) {
             return resp.text();
         })
         .then(function (html) {
-            var wrapperNode=document.querySelector('#wrapper');
-            wrapperNode.innerHTML ="";
-            var container=document.createElement('div');
-            container.innerHTML=html;
-            container.childNodes.forEach(element=>{
+            var wrapperNode = document.querySelector('#wrapper');
+            wrapperNode.innerHTML = "";
+            var container = document.createElement('div');
+            container.innerHTML = html;
+            if (typeof callback === 'function') { callback(container); }
+            container.childNodes.forEach(element => {
                 wrapperNode.append(element);
             });
+
             return html;
         })
-        
+
 }
