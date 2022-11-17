@@ -18,9 +18,10 @@ function setActiveLinkInNavbar(evt, setActiveparentli = true) {
     })
     if (setActiveparentli) { evt.target.parentElement.classList.add('active'); }
 }
-function linkCreateEvt(evt) {
+function linkCreateEvt(evt,memeid) {
     //echapement du comportement par defaut de la balise déclenchant l'evenement 
     evt.preventDefault();
+    history.pushState('','meme creator',undefined!==memeid?`/creator/${memeid}`:'/creator');
     console.log('fonction liens create', evt);
     setActiveLinkInNavbar(evt);
     loadPage('create.html', function (nodeBase) {
@@ -35,6 +36,8 @@ function linkCreateEvt(evt) {
 function linkHomeEvt(evt) {
     //echapement du comportement par defaut de la balise déclenchant l'evenement 
     evt.preventDefault();
+    history.pushState('','meme home','/');
+
     console.log('fonction liens home', evt);
     setActiveLinkInNavbar(evt, false);
     loadPage('home.html', 1);
@@ -43,6 +46,8 @@ function linkHomeEvt(evt) {
 function linkThumbnailEvt(evt) {
     //echapement du comportement par defaut de la balise déclenchant l'evenement 
     evt.preventDefault();
+    history.pushState('','meme creator','/thumbnail');
+
     console.log('fonction liens thumbnail', evt);
     setActiveLinkInNavbar(evt);
     const primages = fetch(`${REST_ADR}/images`).then(r => r.json());
@@ -77,7 +82,9 @@ function linkThumbnailEvt(evt) {
 
                     memeNode.querySelector('svg').setAttribute('viewBox','0 0 '+imageDuMeme.w+' '+imageDuMeme.h);
 
-
+memeNode.addEventListener('click',(evt)=>{
+    linkCreateEvt(evt,meme.id);
+})
                     //ajout du clone dans le container
                     container.querySelector('#thumbnail').append(memeNode);
 
