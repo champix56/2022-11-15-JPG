@@ -1,3 +1,17 @@
+const initRoutes=(evt) => {
+    const path=location.pathname;
+    if(path.startsWith('/thumbnail'))
+    {
+        linkThumbnailEvt(evt);
+    }
+    else if(path.startsWith('/creator')){
+        linkCreateEvt(evt);
+    }
+    else{
+        linkHomeEvt(evt);
+    }
+};
+
 function setNavbarEvent() {
     document.getElementById('link-create').addEventListener('click', linkCreateEvt);
     document.getElementById('link-thumb').addEventListener('click', linkThumbnailEvt);
@@ -16,7 +30,10 @@ function setActiveLinkInNavbar(evt, setActiveparentli = true) {
     tousLesLi.forEach(function (element) {
         element.classList.remove('active');
     })
-    if (setActiveparentli) { evt.target.parentElement.classList.add('active'); }
+    if (setActiveparentli) { 
+        
+        evt.target.parentElement.classList.add('active');
+     }
 }
 function linkCreateEvt(evt,memeid) {
     //echapement du comportement par defaut de la balise déclenchant l'evenement 
