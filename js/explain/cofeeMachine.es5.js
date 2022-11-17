@@ -1,12 +1,12 @@
 function MachineACafee(volumeBacAEau,volumeCafeMax){
-    var tempOfWaterMax=65;
+    var _tempOfWaterMax=65;
     
-    function allumagePompe(){
+    function _allumagePompe(){
         console.log('allumage pompe a eau');
         this.volumeCafeCoule=this.niveauEau;
         this.niveauEau=0;
     }
-    function allumageResistance(){
+    function _allumageResistance(){
         console.log('allumage resistance chauffante');
     }
     //public section 
@@ -23,9 +23,9 @@ function MachineACafee(volumeBacAEau,volumeCafeMax){
     }
     this.allumage=()=>{
         console.log('allumage general de la machine', this);
-        allumageResistance();
+        _allumageResistance();
         ///attente
-        allumagePompe();
+        _allumagePompe();
     }
     
     console.log('construction achevée');
