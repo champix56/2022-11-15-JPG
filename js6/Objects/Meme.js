@@ -47,18 +47,29 @@ export default class Meme {
 
         return svg;
     }
-    setImage=(imageId,imgList)=>{
-        const imgIdConverted=Number(imageId);
-        if(!Number.isInteger(imgIdConverted)){
-            this.#image=undefined;
-            this.imageId=-1;
+    setImage = (imageId, imgList) => {
+        const imgIdConverted = Number(imageId);
+        if (!Number.isInteger(imgIdConverted)) {
+            this.#image = undefined;
+            this.imageId = -1;
             return;
         }
-        this.#image=imgList.find(img=>img.id===imgIdConverted);
-        this.imageId=imgIdConverted;
-    } 
+        this.#image = imgList.find(img => img.id === imgIdConverted);
+        this.imageId = imgIdConverted;
+    }
+    #uploadOnRest = () => {
+        return fetch(`${REST_ADR}${this.id !== undefined ? '/' + id : ''}`, {body:JSON.stringify(this), method: this.id !== undefined ? 'PUT' : 'POST', headers: { "Content-Type": 'application/json' } })
+            .then(r => r.json())
+    }
     save = () => {
-
-     }
+        let isNew = this.id !== undefined ? false : true;
+        return this.#uploadOnRest().then(m => {
+            if (isNew) {
+                this.id = m.id;
+                history.pushState('', '', '/creator/' + m.id);
+            }
+            return m;
+        });
+    }
 };
-export const currentMeme=new Meme();
+export const currentMeme = new Meme();
