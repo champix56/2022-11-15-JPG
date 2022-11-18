@@ -3,5 +3,6 @@ class Image {
     h = 0;
     href = 0;
     id = -1;
+    titre='';
 };
 export {Image as default};
