@@ -63,7 +63,7 @@ export default class Meme {
      * @return {Promise<{}>}
      */
     #uploadOnRest = () => {
-        return fetch(`${REST_ADR}${this.id !== undefined ? '/' + id : ''}`, {body:JSON.stringify(this), method: this.id !== undefined ? 'PUT' : 'POST', headers: { "Content-Type": 'application/json' } })
+        return fetch(`${REST_ADR}${this.id !== undefined ? this.#serveurRessourceUrl+'/' + id :  this.#serveurRessourceUrl}`, {body:JSON.stringify(this), method: this.id !== undefined ? 'PUT' : 'POST', headers: { "Content-Type": 'application/json' } })
             .then(r => r.json())
     }
     /**
