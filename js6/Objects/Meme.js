@@ -57,10 +57,17 @@ export default class Meme {
         this.#image = imgList.find(img => img.id === imgIdConverted);
         this.imageId = imgIdConverted;
     }
+    /**
+     * fetching fuction for saving
+     * test if new (id exist) or not
+     */
     #uploadOnRest = () => {
         return fetch(`${REST_ADR}${this.id !== undefined ? '/' + id : ''}`, {body:JSON.stringify(this), method: this.id !== undefined ? 'PUT' : 'POST', headers: { "Content-Type": 'application/json' } })
             .then(r => r.json())
     }
+    /**
+     * post or update this meme
+     */
     save = () => {
         let isNew = this.id !== undefined ? false : true;
         return this.#uploadOnRest().then(m => {
@@ -70,6 +77,24 @@ export default class Meme {
             }
             return m;
         });
+    }
+
+    /**
+     * clear meme value to return to ean empty meme with no id
+     */
+    clear=()=>{
+        this.id = undefined;
+        this.imageId = -1;
+        this.#image = undefined;
+        this.fontSize = 10;
+        this.fontWeight = "500";
+        this.text = "";
+        this.x = 0;
+        this.y = 7;
+        this.color = '#ACACAC';
+        this.underline = false;
+        this.italic = false;
+        this.titre = "";
     }
 };
 export const currentMeme = new Meme();
