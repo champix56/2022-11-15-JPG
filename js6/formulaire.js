@@ -15,24 +15,34 @@ export default class VueFormulaire {
     constructor(nodeSelector = '#wrapper') {
         this.#nodeSelector = nodeSelector;
     }
+    #renderCurrent=()=>{
+        this.domRefElement.querySelector('svg').replaceWith(this.#currentMeme.renderSvg())
+    }
     #ongenericinput=(evt)=>{
         evt.stopPropagation();
         const name=evt.target.name;
         this.#currentMeme[name] = evt.target.value;
-        console.log(this.#currentMeme);
+        this.#renderCurrent();
+        //console.log(this.#currentMeme);
     }
     /**
      * add form events 
      * ATTENTION: must html form elements must be already loaded in this.#container
      */
     #addEvents = () => {        
-        this.#container.querySelector('#meme_titre').addEventListener('input',this.#ongenericinput);
+        //gestion input text / number avec gestion generique d'event
+         /*this.#container.querySelector('#meme_titre').addEventListener('input',this.#ongenericinput);
         this.#container.querySelector('#meme_text').addEventListener('input', this.#ongenericinput);
         this.#container.querySelector('#meme_x').addEventListener('input', this.#ongenericinput);
         this.#container.querySelector('#meme_y').addEventListener('input', this.#ongenericinput);
         this.#container.querySelector('#meme_fontSize').addEventListener('input', this.#ongenericinput);
         this.#container.querySelector('#meme_fontWeight').addEventListener('input', this.#ongenericinput);
-        this.#container.querySelector('#meme_color').addEventListener('input', this.#ongenericinput);
+        this.#container.querySelector('#meme_color').addEventListener('input', this.#ongenericinput);*/      
+        //gestion des events sur tous les inputs selectionnés par querySelectorAll  
+       this.#container
+        .querySelectorAll('form input[type=text],form input[type=number],form input[type=color]')
+            .forEach(e=>{e.addEventListener('input',this.#ongenericinput);});
+
     }
     #loadingContent = () => {
         const select = this.#container.querySelector('select');
