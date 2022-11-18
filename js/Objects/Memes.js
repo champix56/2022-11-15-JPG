@@ -58,6 +58,10 @@ class Memes extends Array {
         });
         return this;
     }
+    /**
+     * get table of all render
+     * @returns {Array<SVGElement>} table of svg element
+     */
     renderAll=()=>{
         return this.map(m=>m.renderSVG());
     }
