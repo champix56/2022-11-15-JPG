@@ -16,7 +16,14 @@ export default class VueFormulaire{
     }
     #addEvents=()=>{}
     #loadingContent=()=>{
-         const select= this.#container.querySelector('select')
+         const select= this.#container.querySelector('select');
+        /*protection multi execution du chargement*/
+         select.innerHTML="";
+         const noImg=document.createElement('option');
+         noImg.value=-1;
+         noImg.innerHTML='Aucune image';
+         select.append(noImg);
+         /*chargement de tous les options d'images*/
         images.map(e=>{
             const o=document.createElement('option');
             o.value=e.id;
@@ -24,7 +31,7 @@ export default class VueFormulaire{
             select.append(o);
         });
     }
-    loadPage=(domRefWrapper)=>{
+    loadPage=()=>{
         const promiseImage=Images.fetch();
         const promiseHTMLTemplate=loadPageByPromise(this.#vueHref);
         Promise.all([promiseHTMLTemplate,promiseImage])
@@ -33,7 +40,7 @@ export default class VueFormulaire{
                 images.replaceContentImagesArray(arrayRessources[1]);
                 console.log(images);
                 this.#loadingContent();
-
+                
                 this.domRefElement=document.querySelector(this.#nodeSelector);
                 this.domRefElement.innerHTML='';
                 this.#container.childNodes.forEach(elem=>this.domRefElement.append(elem));
