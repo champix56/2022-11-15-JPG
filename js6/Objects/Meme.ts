@@ -1,42 +1,43 @@
-import Image from './Image.js';
-import REST_ADR from '../constantes.js'
+import Image from './Image';
+import REST_ADR from '../constantes'
 
 export default class Meme {
-    #serveurRessourceUrl = undefined;
+    #serveurRessourceUrl:string|undefined = undefined;
 
-    id = undefined;
-    imageId = -1;
-    #image = undefined;
-    fontSize = 10;
-    fontWeight = "500";
-    text = "";
-    x = 0;
-    y = 7;
-    color = '#ACACAC';
-    underline = false;
-    italic = false;
-    titre = "";
+    id:number|undefined = undefined;
+    imageId:number=-1;
+    //imageId = -1;
+    #image:Image|undefined = undefined;
+    fontSize:number = 10;
+    fontWeight:string = "500";
+    text:string = "";
+    x:number = 0;
+    y:number = 7;
+    color:string = '#ACACAC';
+    underline:boolean = false;
+    italic:boolean = false;
+    titre:string = "";
 
-    constructor(serveurRessourceUrl = '/memes') {
+    constructor(serveurRessourceUrl:string = '/memes') {
         this.#serveurRessourceUrl = serveurRessourceUrl;
     }
-    renderSvg = () => {
-        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    renderSvg : Function = ():SVGSVGElement => {
+        const svg:SVGSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('height', '100%');
         svg.setAttribute('width', '100%');
         svg.setAttribute('viewBox', typeof this.#image === 'object' && this.#image.w && this.#image.h ? `0 0 ${this.#image.w} ${this.#image.h}` : '0 0 1000 1000')
 
         if (this.#image && this.#image.href) {
             const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-            img.setAttribute('x', 0);
-            img.setAttribute('y', 0);
+            img.setAttribute('x', '0');
+            img.setAttribute('y', '0');
             img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '/img/' + this.#image.href);
             svg.append(img);
         }
 
         const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        text.setAttribute('x', this.x);
-        text.setAttribute('y', this.y);
+        text.setAttribute('x', this.x.toString());
+        text.setAttribute('y', this.y.toString());
         text.style.textDecoration = this.underline ? 'underline' : 'none';
         text.style.fontStyle = this.underline ? 'italic' : 'normal';
         text.style.fontWeight = this.fontWeight;
@@ -47,7 +48,7 @@ export default class Meme {
 
         return svg;
     }
-    setImage = (imageId, imgList) => {
+    setImage = (imageId:number, imgList:Images) => {
         const imgIdConverted = Number(imageId);
         if (!Number.isInteger(imgIdConverted)) {
             this.#image = undefined;
@@ -62,17 +63,17 @@ export default class Meme {
      * test if new (id exist) or not
      * @return {Promise<{}>}
      */
-    #uploadOnRest = () => {
-        return fetch(`${REST_ADR}${this.id !== undefined ? this.#serveurRessourceUrl+'/' + id :  this.#serveurRessourceUrl}`, {body:JSON.stringify(this), method: this.id !== undefined ? 'PUT' : 'POST', headers: { "Content-Type": 'application/json' } })
+    #uploadOnRest:Function = ():Promise<I_Meme> => {
+        return fetch(`${REST_ADR}${this.id !== undefined ? this.#serveurRessourceUrl+'/' + this.id :  this.#serveurRessourceUrl}`, {body:JSON.stringify(this), method: this.id !== undefined ? 'PUT' : 'POST', headers: { "Content-Type": 'application/json' } })
             .then(r => r.json())
     }
     /**
      * post or update this meme
-     * @return {Promise<Meme>}
+     * @return {Promise<I_Meme>}
      */
     save = () => {
         let isNew = this.id !== undefined ? false : true;
-        return this.#uploadOnRest().then(m => {
+        return this.#uploadOnRest().then((m:I_Meme) => {
             if (isNew) {
                 this.id = m.id;
                 history.pushState('', '', '/creator/' + m.id);
@@ -99,4 +100,17 @@ export default class Meme {
         this.titre = "";
     }
 };
+export interface I_Meme{
+    id:number|undefined ;
+    imageId:number;
+    fontSize:number ;
+    fontWeight:string ;
+    text:string ;
+    x:number;
+    y:number;
+    color:string;
+    underline:boolean;
+    italic:boolean;
+    titre:string;
+}
 export const currentMeme = new Meme();
