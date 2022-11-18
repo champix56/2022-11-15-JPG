@@ -43,6 +43,15 @@ export default class VueFormulaire {
         .querySelectorAll('form input[type=text],form input[type=number],form input[type=color]')
             .forEach(e=>{e.addEventListener('input',this.#ongenericinput);});
 
+        this.#container.querySelector('select').addEventListener('change',evt=>{
+            this.#currentMeme.setImage(Number(evt.target.value),images);
+            this.#renderCurrent();
+        });
+        this.#container.querySelector('form').addEventListener('submit',evt=>{
+            evt.preventDefault();
+            this.#currentMeme.save();
+        })
+
     }
     #loadingContent = () => {
         const select = this.#container.querySelector('select');
