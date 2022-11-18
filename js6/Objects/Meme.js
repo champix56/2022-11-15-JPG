@@ -24,13 +24,13 @@ export default class Meme {
         const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         svg.setAttribute('height', '100%');
         svg.setAttribute('width', '100%');
-        svg.setAttribute('viewBox', typeof this.image === 'object' && this.image.w && this.image.h ? `0 0 ${this.image.w} ${this.image.h}` : '0 0 1000 1000')
+        svg.setAttribute('viewBox', typeof this.#image === 'object' && this.#image.w && this.#image.h ? `0 0 ${this.#image.w} ${this.#image.h}` : '0 0 1000 1000')
 
-        if (this.image && this.image.href) {
+        if (this.#image && this.#image.href) {
             const img = document.createElementNS('http://www.w3.org/2000/svg', 'image');
             img.setAttribute('x', 0);
             img.setAttribute('y', 0);
-            img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '/img/' + this.image.href);
+            img.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '/img/' + this.#image.href);
             svg.append(img);
         }
 
@@ -40,7 +40,7 @@ export default class Meme {
         text.style.textDecoration = this.underline ? 'underline' : 'none';
         text.style.fontStyle = this.underline ? 'italic' : 'normal';
         text.style.fontWeight = this.fontWeight;
-        text.style.fontSize = this.fontSize;
+        text.style.fontSize = this.fontSize+'px';
         text.style.fill = this.color;
         text.innerHTML = this.text;
         svg.append(text);
