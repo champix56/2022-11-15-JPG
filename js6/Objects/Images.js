@@ -27,6 +27,7 @@ export default class Images extends Array {
         imageArray.map(i=>{
             this.push(i);
         })
+        return this;
     }
     /**
      * get element in array by id

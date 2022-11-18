@@ -62,6 +62,17 @@ export default class Memes extends Array {
         return this;
     }
     /**
+     * replace content of this with this with external list
+     * @param {Memes} memesArray filled memes list array
+     */
+    replaceContentLMemesArray=(memesArray)=>{
+        this.splice(0);
+        imageArray.map(i=>{
+            this.push(i);
+        });
+        return this;
+    }
+    /**
      * get table of all render
      * @returns {Array<SVGElement>} table of svg element
      */
