@@ -60,6 +60,7 @@ export default class Meme {
     /**
      * fetching fuction for saving
      * test if new (id exist) or not
+     * @return {Promise<{}>}
      */
     #uploadOnRest = () => {
         return fetch(`${REST_ADR}${this.id !== undefined ? '/' + id : ''}`, {body:JSON.stringify(this), method: this.id !== undefined ? 'PUT' : 'POST', headers: { "Content-Type": 'application/json' } })
@@ -67,6 +68,7 @@ export default class Meme {
     }
     /**
      * post or update this meme
+     * @return {Promise<Meme>}
      */
     save = () => {
         let isNew = this.id !== undefined ? false : true;
